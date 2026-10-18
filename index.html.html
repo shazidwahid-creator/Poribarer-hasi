@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পরিবারের হাসি | Poribarer Hashi - প্রবাসীদের আস্থা</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Hind Siliguri for Bengali) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            emerald: '#059669',
+                            darkEmerald: '#047857',
+                            amber: '#d97706',
+                            rose: '#e11d48',
+                            navy: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #059669;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-navy text-white text-xs md:text-sm py-2 px-4 text-center flex justify-between items-center px-4 md:px-8">
+        <div>
+            <i class="fa-solid fa-globe text-emerald-400 mr-1"></i> বিশ্বজুড়ে প্রবাসী ভাই-বোনদের সেবায় নিবেদিত
+        </div>
+        <div class="hidden md:flex gap-4">
+            <span id="header-phone-display"><i class="fa-solid fa-phone text-emerald-400 mr-1"></i> +880 1700-000000</span>
+            <span id="header-email-display"><i class="fa-solid fa-envelope text-emerald-400 mr-1"></i> support@poribarerhashi.com</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <!-- Brand Logo & Name -->
+            <a href="#" onclick="showSection('home')" class="flex items-center gap-3">
+                <div class="bg-emerald-100 text-brand-emerald p-2.5 rounded-full shadow-inner">
+                    <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-brand-emerald leading-tight">পরিবারের হাসি</h1>
+                    <p class="text-xs text-gray-500 font-medium">Poribarer Hashi</p>
+                </div>
+            </a>
+
+            <!-- Tagline (Desktop) -->
+            <div class="hidden lg:block italic text-gray-600 text-sm font-medium border-l-2 border-emerald-500 pl-4">
+                "আপনি দূরে, আমরা পাশে — পরিবারের সব প্রয়োজনে।"
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center gap-3">
+                <!-- Cart Button -->
+                <button onclick="toggleCartModal()" class="relative bg-emerald-50 text-brand-emerald p-2.5 rounded-lg hover:bg-emerald-100 transition">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-brand-rose text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Custom Wish Request Button -->
+                <button onclick="openCustomOrderModal()" class="hidden sm:flex items-center gap-2 bg-brand-amber text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-amber-700 transition shadow">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> বিশেষ আবদার / অর্ডার
+                </button>
+
+                <!-- Admin Toggle Button -->
+                <button onclick="showSection('admin')" class="bg-gray-100 text-gray-700 p-2.5 rounded-lg hover:bg-gray-200 transition" title="এডমিন প্যানেল">
+                    <i class="fa-solid fa-user-gear text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Tagline Bar -->
+        <div class="block lg:hidden bg-emerald-50 text-brand-emerald text-xs text-center py-1.5 font-medium border-t border-b border-emerald-100">
+            "আপনি দূরে, আমরা পাশে — পরিবারের সব প্রয়োজনে।"
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow">
+        
+        <!-- SECTION: HOME -->
+        <section id="sec-home" class="block">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-emerald-800 to-teal-900 text-white py-12 md:py-20 px-4">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="max-w-2xl text-center md:text-left">
+                        <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">বিশ্বস্ত প্রবাসী সেবা</span>
+                        <h2 class="text-3xl md:text-5xl font-extrabold mt-4 leading-tight">
+                            দেশে থাকা প্রিয়জনের যে কোনো স্বপ্ন ও প্রয়োজন পূরণ করুন স্বাচ্ছন্দে
+                        </h2>
+                        <p class="mt-4 text-emerald-100 text-base md:text-lg">
+                            সাপ্তাহিক বাজার থেকে শুরু করে কাপরচোপড়, ইলেকট্রনিক্স, গাড়ি, ফ্লাট কিংবা কোরবানির গরু — আপনার ভালোবাসার উপহার পৌছে দিব নির্ভরযোগ্য হাতে।
+                        </p>
+                        <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
+                            <a href="#products-section" class="bg-white text-brand-emerald font-bold px-6 py-3 rounded-lg shadow hover:bg-emerald-50 transition">
+                                <i class="fa-solid fa-bag-shopping mr-2"></i> পণ্য ও সেবা দেখুন
+                            </a>
+                            <button onclick="openCustomOrderModal()" class="bg-brand-amber text-white font-bold px-6 py-3 rounded-lg shadow hover:bg-amber-600 transition">
+                                <i class="fa-solid fa-heart mr-2"></i> কাস্টম অর্ডার করুন
+                            </button>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-2xl text-white">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-amber-400"></i> কেন আমাদের বেছে নেবেন?
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>সরাসরি ছবি ও ভিডিও প্রুফ ডেলিভারি</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>আন্তর্জাতিক কার্ড ও বিকাশ/ব্যাংক পেমেন্ট</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>১০০% বিশ্বস্ততা ও সঠিক সময়ে পৌঁছানো</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>বিশেষ প্রসেসিং (গাড়ি, জমি, ফ্লাট আইনি যাচাই)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Filter -->
+            <div id="products-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900">সেবাসমূহ ও ক্যাটালগ</h2>
+                        <p class="text-gray-600 text-sm">আপনার পরিবারের প্রয়োজনীয় ক্যাটাগরি বেছে নিন</p>
+                    </div>
+
+                    <!-- Category Pills -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                        <button onclick="filterCategory('all')" class="cat-btn active border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-brand-emerald text-white border-brand-emerald">
+                            সবগুলো
+                        </button>
+                        <button onclick="filterCategory('weekly_bajar')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            সাপ্তাহিক বাজার
+                        </button>
+                        <button onclick="filterCategory('monthly_bajar')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            মাসিক বাজার
+                        </button>
+                        <button onclick="filterCategory('clothing')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            জামাকাপড়
+                        </button>
+                        <button onclick="filterCategory('gadgets')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            ইলেকট্রনিক্স
+                        </button>
+                        <button onclick="filterCategory('qurbani')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            কোরবানির গরু
+                        </button>
+                        <button onclick="filterCategory('real_estate')" class="cat-btn border px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap bg-white text-gray-700 hover:bg-gray-100">
+                            গাড়ি ও ফ্লাট
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Products rendered via JS -->
+                </div>
+            </div>
+            
+            <!-- Direct Request CTA Banner -->
+            <div class="max-w-7xl mx-auto px-4 mb-16">
+                <div class="bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                    <div class="space-y-2 text-center md:text-left">
+                        <h3 class="text-2xl font-bold">ওয়েবসাইটে আপনার কাঙ্ক্ষিত বিষয়টি পাচ্ছেন না?</h3>
+                        <p class="text-amber-100 text-sm md:text-base">জরুরি ওষুধ, নির্দিষ্ট কোনো গিফট, জমি কেনা বা বিশেষ কোনো প্রয়োজন? আমাদের লিখে পাঠান!</p>
+                    </div>
+                    <button onclick="openCustomOrderModal()" class="bg-white text-amber-700 font-bold px-8 py-3 rounded-xl shadow-lg hover:bg-amber-50 transition whitespace-nowrap">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> সরাসরি চাহিদা পাঠান
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: ADMIN PANEL -->
+        <section id="sec-admin" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">এডমিন ও ড্যাশবোর্ড কন্ট্রোল</h2>
+                    <p class="text-sm text-gray-500">পণ্য ম্যানেজমেন্ট, পেমেন্ট ইনফো ও যোগাযোগ নম্বর আপডেট করুন</p>
+                </div>
+                <button onclick="showSection('home')" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> ওয়েবসাইটে ফিরে যান
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Product Addition Form -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-xl border shadow-sm">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-plus-circle text-brand-emerald mr-2"></i>নতুন প্রোডাক্ট যোগ করুন</span>
+                    </h3>
+                    <form id="add-product-form" onsubmit="handleAddProduct(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">প্রোডাক্টের নাম *</label>
+                            <input type="text" id="p-title" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="যেমন: ১ সপ্তাহের বাজার বা কোরবানির ষাঁড়">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">ক্যাটাগরি *</label>
+                            <select id="p-category" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
+                                <option value="weekly_bajar">সাপ্তাহিক বাজার</option>
+                                <option value="monthly_bajar">মাসিক বাজার</option>
+                                <option value="clothing">জামাকাপড়</option>
+                                <option value="gadgets">ইলেকট্রনিক্স</option>
+                                <option value="qurbani">কোরবানির গরু</option>
+                                <option value="real_estate">গাড়ি ও ফ্লাট</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">মূল্য (৳ BDT) *</label>
+                                <input type="number" id="p-price" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="5000">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">ইউনিট/টাইপ</label>
+                                <input type="text" id="p-unit" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="যেমন: প্যাকেট/প্রতিটি">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">ছবি URL (Unsplash/Direct Link) *</label>
+                            <input type="url" id="p-image" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="https://images.unsplash.com/...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">বিবরণ / পণ্যের তালিকা</label>
+                            <textarea id="p-desc" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="যেমন: চাল ৫কেজি, তেল ২লিটার, ডাল ১কেজি..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-emerald text-white py-2.5 rounded-lg font-bold hover:bg-emerald-700 transition">
+                            <i class="fa-solid fa-plus mr-1"></i> প্রোডাক্ট সেভ করুন
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Admin Dynamic Information Settings -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Business Info & Payment Setup -->
+                    <div class="bg-white p-6 rounded-xl border shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2 flex items-center justify-between">
+                            <span><i class="fa-solid fa-gears text-brand-amber mr-2"></i>পেমেন্ট ও নম্বর সেটিং (Dynamic Config)</span>
+                        </h3>
+                        <form id="config-form" onsubmit="handleSaveConfig(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">অফিসিয়াল ফোন/হোয়াটসঅ্যাপ নম্বর</label>
+                                    <input type="text" id="cfg-phone" class="w-full border rounded-lg px-3 py-2 text-sm" value="+880 1700-000000">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">ইমেইল এড্রেস</label>
+                                    <input type="email" id="cfg-email" class="w-full border rounded-lg px-3 py-2 text-sm" value="support@poribarerhashi.com">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">বিকাশ মার্চেন্ট / পার্সোনাল নম্বর</label>
+                                    <input type="text" id="cfg-bkash" class="w-full border rounded-lg px-3 py-2 text-sm" value="01700000000 (Personal)">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">নগদ নম্বর</label>
+                                    <input type="text" id="cfg-nagad" class="w-full border rounded-lg px-3 py-2 text-sm" value="01700000000 (Merchant)">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">ব্যাংক একাউন্ট ডিটেইলস (International/Local)</label>
+                                <textarea id="cfg-bank" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Bank Name, A/C No, Branch, Routing">Dutch-Bangla Bank Ltd, Account Name: Poribarer Hashi, A/C: 123.110.XXXX, Gulshan Branch, Swift: DBBLBDDH</textarea>
+                            </div>
+                            <button type="submit" class="bg-brand-navy text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-slate-800 transition">
+                                <i class="fa-solid fa-floppy-disk mr-1"></i> তথ্য আপডেট করুন
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Manage Products List -->
+                    <div class="bg-white p-6 rounded-xl border shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">
+                            <i class="fa-solid fa-list-check text-blue-600 mr-2"></i> বর্তমান পণ্য তালিকা
+                        </h3>
+                        <div class="overflow-x-auto max-h-72 custom-scrollbar">
+                            <table class="w-full text-left text-xs text-gray-600">
+                                <thead class="bg-gray-100 text-gray-800 uppercase font-semibold sticky top-0">
+                                    <tr>
+                                        <th class="p-2">ছবি</th>
+                                        <th class="p-2">নাম</th>
+                                        <th class="p-2">ক্যাটাগরি</th>
+                                        <th class="p-2">মূল্য</th>
+                                        <th class="p-2 text-right">অ্যাকশন</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-product-table">
+                                    <!-- Table Rows via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SHOPPING CART MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-50 flex justify-end hidden transition-opacity">
+        <div class="bg-white w-full max-w-md h-full flex flex-col justify-between shadow-2xl">
+            <!-- Modal Header -->
+            <div class="p-4 bg-brand-emerald text-white flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping"></i> অগোছানো অর্ডার তালিকা
+                </h3>
+                <button onclick="toggleCartModal()" class="text-white hover:text-gray-200 text-xl font-bold">&times;</button>
+            </div>
+
+            <!-- Modal Cart Items -->
+            <div id="cart-items-container" class="p-4 flex-grow overflow-y-auto space-y-4 custom-scrollbar">
+                <!-- Items Populated by JS -->
+            </div>
+
+            <!-- Cart Summary & Checkout -->
+            <div class="p-4 border-t bg-gray-50 space-y-3">
+                <div class="flex justify-between font-bold text-lg text-gray-800">
+                    <span>মোট আনুমানিক খরচ:</span>
+                    <span id="cart-total-price">৳ 0</span>
+                </div>
+                <p class="text-xs text-gray-500">স্বজনদের কাছে হস্তান্তরের পর কনফার্মেশন ছবি/ভিডিও পাঠানো হবে।</p>
+                <button onclick="openCheckoutModal()" id="btn-proceed-checkout" disabled class="w-full bg-brand-emerald text-white font-bold py-3 rounded-lg disabled:opacity-50 hover:bg-emerald-700 transition">
+                    অর্ডার সম্পন্ন করতে এগিয়ে যান
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM WISH ORDER MODAL -->
+    <div id="custom-order-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <button onclick="closeCustomOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            <h3 class="text-xl font-bold text-brand-emerald mb-1">বিশেষ আবদার বা কাস্টম চাহিদা</h3>
+            <p class="text-xs text-gray-500 mb-4">আমাদের ক্যাটালগে নেই? আপনার পছন্দমতো যেকোনো কিছু ডেলিভারির অনুরোধ পাঠান।</p>
+
+            <form onsubmit="handleCustomRequestSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">আপনার নাম (প্রবাসী) *</label>
+                    <input type="text" required class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500" placeholder="যেমন: মোঃ রফিকুল ইসলাম">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">আপনার হোয়াটসঅ্যাপ নম্বর *</label>
+                        <input type="tel" required class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500" placeholder="+971 50 123 4567">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">বাসস্থান (দেশ)</label>
+                        <input type="text" class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500" placeholder="যেমন: দুবাই, ইউএই">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">আপনার চাহিদার বিস্তারিত বিবরণ *</label>
+                    <textarea required rows="4" class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500" placeholder="কী পাঠাতে চান? (যেমন: বগুড়ার দই, মিরপুরের কাতান শাড়ি, কিংবা গ্রামের বাড়িতে নির্দিষ্ট মডেলের মোটর)"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">প্রাপকের জেলা / ঠিকানা (বাংলাদেশে)</label>
+                    <input type="text" class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500" placeholder="যেমন: কুমিল্লা সদর">
+                </div>
+                <button type="submit" class="w-full bg-brand-amber text-white font-bold py-3 rounded-lg hover:bg-amber-600 transition shadow">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> চাহিদাপত্র পাঠিয়ে দিন
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHECKOUT / ORDER FINALIZATION MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-2xl p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto custom-scrollbar">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            <h3 class="text-xl font-bold text-brand-emerald border-b pb-2 mb-4">অর্ডার নিশ্চিতকরণ ও পেমেন্ট বিবরণ</h3>
+
+            <form onsubmit="handleFinalCheckout(event)" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Sender Details -->
+                    <div class="space-y-3 bg-gray-50 p-4 rounded-xl border">
+                        <h4 class="font-bold text-sm text-brand-emerald border-b pb-1">১. আপনার তথ্য (প্রবাসী)</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">আপনার নাম *</label>
+                            <input type="text" required class="w-full border rounded px-3 py-1.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">হোয়াটসঅ্যাপ/ফোন নম্বর *</label>
+                            <input type="tel" required class="w-full border rounded px-3 py-1.5 text-sm" placeholder="+966 5X XXX XXXX">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">বর্তমান অবস্থান (দেশ)</label>
+                            <input type="text" class="w-full border rounded px-3 py-1.5 text-sm" placeholder="সৌদি আরব, মালয়েশিয়া, ইত্যাদি">
+                        </div>
+                    </div>
+
+                    <!-- Receiver Details -->
+                    <div class="space-y-3 bg-gray-50 p-4 rounded-xl border">
+                        <h4 class="font-bold text-sm text-brand-emerald border-b pb-1">২. পরিবারের ঠিকানা (বাংলাদেশ)</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">প্রাপকের নাম *</label>
+                            <input type="text" required class="w-full border rounded px-3 py-1.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">প্রাপকের ফোন নম্বর *</label>
+                            <input type="tel" required class="w-full border rounded px-3 py-1.5 text-sm" placeholder="017XXXXXXXX">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700">পূর্ণাঙ্গ ঠিকানা *</label>
+                            <textarea required rows="2" class="w-full border rounded px-3 py-1.5 text-sm" placeholder="গ্রাম/রোড, পোস্ট অফিস, থানা, জেলা"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method Options Dynamic Box -->
+                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                    <h4 class="font-bold text-sm text-brand-emerald mb-2">৩. পেমেন্টের মাধ্যম সিলেক্ট করুন</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+                        <label class="flex items-center gap-2 border p-2 rounded bg-white cursor-pointer text-xs font-semibold">
+                            <input type="radio" name="payment_method" value="bkash" checked onclick="switchPaymentDetails('bkash')"> bKash
+                        </label>
+                        <label class="flex items-center gap-2 border p-2 rounded bg-white cursor-pointer text-xs font-semibold">
+                            <input type="radio" name="payment_method" value="nagad" onclick="switchPaymentDetails('nagad')"> Nagad
+                        </label>
+                        <label class="flex items-center gap-2 border p-2 rounded bg-white cursor-pointer text-xs font-semibold">
+                            <input type="radio" name="payment_method" value="bank" onclick="switchPaymentDetails('bank')"> Bank Wire
+                        </label>
+                        <label class="flex items-center gap-2 border p-2 rounded bg-white cursor-pointer text-xs font-semibold">
+                            <input type="radio" name="payment_method" value="card" onclick="switchPaymentDetails('card')"> Int. Card
+                        </label>
+                    </div>
+
+                    <!-- Dynamic Details Box -->
+                    <div id="payment-details-box" class="bg-white p-3 rounded text-xs text-gray-700 border">
+                        <!-- Populated by JS based on selection -->
+                    </div>
+                </div>
+
+                <!-- Order Summary & Notes -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">পরিবারের জন্য বিশেষ বার্তা (ঐচ্ছিক)</label>
+                    <input type="text" class="w-full border rounded px-3 py-1.5 text-sm" placeholder="যেমন: চিরকুটে লিখে দেবেন 'শুভ জন্মদিন আব্বু'">
+                </div>
+
+                <button type="submit" class="w-full bg-brand-emerald text-white font-bold py-3 rounded-xl hover:bg-emerald-700 transition shadow-lg text-base">
+                    <i class="fa-solid fa-check-circle mr-2"></i> কনফার্ম অর্ডার সাবমিট করুন
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-navy text-gray-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-gray-800">
+            
+            <!-- Col 1: Brand Info -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2 text-white">
+                    <i class="fa-solid fa-hand-holding-heart text-brand-emerald text-2xl"></i>
+                    <span class="text-xl font-bold">পরিবারের হাসি</span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    প্রবাসীদের কষ্টার্জিত উপার্জনে দেশে থাকা স্বজনদের মুখে হাসি ফোটানোই আমাদের মূল লক্ষ্য। সততা ও বিশ্বস্ততার সাথে সব ধরণের বাজার ও প্রয়োজন আপনার দোরগোড়ায়।
+                </p>
+                <div class="text-xs text-emerald-400 font-semibold italic">
+                    "আপনি দূরে, আমরা পাশে — পরিবারের সব প্রয়োজনে।"
+                </div>
+            </div>
+
+            <!-- Col 2: Services -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 border-b border-gray-700 pb-1">আমাদের সেবাসমূহ</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#products-section" onclick="filterCategory('weekly_bajar')" class="hover:text-white">সাপ্তাহিক ও মাসিক বাজার</a></li>
+                    <li><a href="#products-section" onclick="filterCategory('clothing')" class="hover:text-white">নতুন জামাকাপড় ও উপহার</a></li>
+                    <li><a href="#products-section" onclick="filterCategory('gadgets')" class="hover:text-white">ইলেকট্রনিক্স ও মোবাইল</a></li>
+                    <li><a href="#products-section" onclick="filterCategory('qurbani')" class="hover:text-white">কোরবানির পশুর ব্যবস্থা</a></li>
+                    <li><a href="#products-section" onclick="filterCategory('real_estate')" class="hover:text-white">গাড়ি, জমি ও ফ্লাট সহায়তা</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Payment Options View -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 border-b border-gray-700 pb-1">পেমেন্ট মেথড</h4>
+                <p class="text-xs text-gray-400 mb-2">আমরা আন্তর্জাতিক এবং স্থানীয় সকল পেমেন্ট সাপোর্ট করি:</p>
+                <div class="flex flex-wrap gap-2 text-xs font-bold">
+                    <span class="bg-pink-900/60 text-pink-300 px-2 py-1 rounded">bKash</span>
+                    <span class="bg-orange-900/60 text-orange-300 px-2 py-1 rounded">Nagad</span>
+                    <span class="bg-blue-900/60 text-blue-300 px-2 py-1 rounded">Bank Wire</span>
+                    <span class="bg-purple-900/60 text-purple-300 px-2 py-1 rounded">Visa/Mastercard</span>
+                </div>
+            </div>
+
+            <!-- Col 4: Contact -->
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3 border-b border-gray-700 pb-1">যোগাযোগ</h4>
+                <ul class="space-y-2 text-xs">
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-brand-emerald"></i>
+                        <span id="footer-phone">+880 1700-000000</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-brand-emerald"></i>
+                        <span id="footer-email">support@poribarerhashi.com</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-globe text-brand-emerald"></i>
+                        <span id="footer-webaddress">www.poribarerhashi.com</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-brand-emerald"></i>
+                        <span>ঢাকা, বাংলাদেশ</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-4 text-center text-xs text-gray-500">
+            &copy; 2026 পরিবারের হাসি (Poribarer Hashi). সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Default Dynamic Configuration
+        let appConfig = {
+            webAddress: "www.poribarerhashi.com",
+            phone: "+880 1700-000000",
+            email: "support@poribarerhashi.com",
+            bkash: "01700000000 (Personal)",
+            nagad: "01700000000 (Merchant)",
+            bank: "Dutch-Bangla Bank Ltd, Account Name: Poribarer Hashi, A/C: 123.110.XXXX, Gulshan Branch, Swift: DBBLBDDH"
+        };
+
+        // Initial Sample Products Catalog
+        let products = [
+            {
+                id: 1,
+                title: "১ সপ্তাহের সম্পূর্ণ ফ্যামিলি বাজার",
+                category: "weekly_bajar",
+                price: 3500,
+                unit: "প্যাকেট",
+                image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80",
+                description: "চাল ১০ কেজি, সয়াবিন তেল ২ লিটার, ডাল ২ কেজি, দেশি মুরগি ২ টি, তাজা সবজি ও আলু পেঁয়াজ।"
+            },
+            {
+                id: 2,
+                title: "১ মাসের প্রিমিয়াম ফ্যামিলি বাজার",
+                category: "monthly_bajar",
+                price: 12500,
+                unit: "প্যাকেট",
+                image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80",
+                description: "সম্পূর্ণ মাসের চাল, ডাল, তেল, মশলা, গুঁড়ো দুধ, মাছ ও মাংসের সম্পূর্ণ প্যাকেজ।"
+            },
+            {
+                id: 3,
+                title: "অভিজাত শাড়ি ও পাঞ্জাবি সেট (উপহার)",
+                category: "clothing",
+                price: 6500,
+                unit: "সেট",
+                image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
+                description: "আম্মা ও আব্বুর জন্য প্রিমিয়াম তাঁতের শাড়ি ও প্রিমিয়াম কটন কাপড়ের সুতি পাঞ্জাবি।"
+            },
+            {
+                id: 4,
+                title: "স্মার্ট টিভি ৪৩ ইঞ্চি (Samsung/LG)",
+                category: "gadgets",
+                price: 38000,
+                unit: "টি",
+                image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80",
+                description: "পরিবারের বিনোদনের জন্য ৪K আল্ট্রা এইচডি স্মার্ট এলইডি টিভি উইথ ওয়ারেন্টি।"
+            },
+            {
+                id: 5,
+                title: "প্রিমিয়াম কোরবানির দেশি ষাঁড়",
+                category: "qurbani",
+                price: 145000,
+                unit: "টি",
+                image: "https://images.unsplash.com/photo-1545468800-85cc9bc6ecf7?auto=format&fit=crop&w=600&q=80",
+                description: "সম্পূর্ণ দেশি খামারের সুস্থ ষাঁড়। হাটে যাওয়া, কেনা ও বাসায় পৌঁছানোর সম্পূর্ণ দায়িত্ব আমাদের।"
+            },
+            {
+                id: 6,
+                title: "টয়োটা এক্স করোলা (ব্যক্তিগত গাড়ি বুকিং)",
+                category: "real_estate",
+                price: 1450000,
+                unit: "টি",
+                image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80",
+                description: "পরিবারের যাতায়াতের জন্য টিপটপ কন্ডিশনের ব্র্যান্ড নিউ বা রিকন্ডিশন কার পারচেজ অ্যাসিস্ট্যান্স।"
+            },
+            {
+                id: 7,
+                title: "রেডি ফ্লাট ক্রয়ে আইনি ও পরিদর্শন সহায়তা",
+                category: "real_estate",
+                price: 50000,
+                unit: "সেবা ফি",
+                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80",
+                description: "ঢাকায় বা আপনার নিজ শহরে ফ্লাট বা জমি কেনার আগে সরেজমিনে পরিদর্শন ও কাজগপত্র যাচাই।"
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderAdminProducts();
+            updateConfigDisplays();
+        });
+
+        // Navigation Switcher
+        function showSection(sectionId) {
+            document.getElementById('sec-home').classList.add('hidden');
+            document.getElementById('sec-admin').classList.add('hidden');
+
+            document.getElementById(`sec-${sectionId}`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Products Grid
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentCategory);
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">এই ক্যাটাগরিতে বর্তমানে কোনো পণ্য নেই।</div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden";
+                card.innerHTML = `
+                    <div>
+                        <div class="h-48 w-full overflow-hidden relative">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            <span class="absolute top-3 left-3 bg-brand-emerald text-white text-xs px-2.5 py-1 rounded-full font-semibold">
+                                ${getCategoryName(p.category)}
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-gray-800 text-lg leading-snug mb-1">${p.title}</h3>
+                            <p class="text-xs text-gray-500 line-clamp-2 mb-3">${p.description || ''}</p>
+                            <div class="text-brand-emerald font-extrabold text-xl">
+                                ৳ ${p.price.toLocaleString('bn-BD')} <span class="text-xs text-gray-400 font-normal">/ ${p.unit || 'টি'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button onclick="addToCart(${p.id})" class="w-full bg-emerald-50 text-brand-emerald font-bold py-2.5 rounded-xl hover:bg-brand-emerald hover:text-white transition flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-plus"></i> অর্ডারে যোগ করুন
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getCategoryName(catKey) {
+            const map = {
+                'weekly_bajar': 'সাপ্তাহিক বাজার',
+                'monthly_bajar': 'মাসিক বাজার',
+                'clothing': 'জামাকাপড়',
+                'gadgets': 'ইলেকট্রনিক্স',
+                'qurbani': 'কোরবানির গরু',
+                'real_estate': 'গাড়ি ও ফ্লাট'
+            };
+            return map[catKey] || 'সাধারণ';
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-emerald', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-700');
+            event.target.classList.add('bg-brand-emerald', 'text-white');
+            renderProducts();
+        }
+
+        // Cart Actions
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            const existing = cart.find(c => c.id === id);
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({...item, qty: 1});
+            }
+            updateCartUI();
+            toggleCartModal(true);
+        }
+
+        function updateCartQty(id, delta) {
+            const idx = cart.findIndex(c => c.id === id);
+            if(idx !== -1) {
+                cart[idx].qty += delta;
+                if(cart[idx].qty <= 0) cart.splice(idx, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total-price');
+            const btnProceed = document.getElementById('btn-proceed-checkout');
+
+            const totalItems = cart.reduce((acc, c) => acc + c.qty, 0);
+            const totalPrice = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+
+            cartCount.innerText = totalItems;
+            cartTotal.innerText = `৳ ${totalPrice.toLocaleString('bn-BD')}`;
+            btnProceed.disabled = cart.length === 0;
+
+            if(cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-gray-400 text-sm">আপনার অর্ডারের কার্ট খালি।</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach(c => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-3 bg-gray-50 p-3 rounded-lg border";
+                div.innerHTML = `
+                    <img src="${c.image}" class="w-14 h-14 object-cover rounded-md">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-xs text-gray-800">${c.title}</h4>
+                        <div class="text-emerald-600 font-bold text-xs mt-1">৳ ${c.price}</div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white border rounded px-2 py-1">
+                        <button onclick="updateCartQty(${c.id}, -1)" class="text-gray-500 font-bold text-sm">-</button>
+                        <span class="text-xs font-bold">${c.qty}</span>
+                        <button onclick="updateCartQty(${c.id}, 1)" class="text-gray-500 font-bold text-sm">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleCartModal(forceOpen = false) {
+            const modal = document.getElementById('cart-modal');
+            if(forceOpen) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        // Modals Logic
+        function openCustomOrderModal() {
+            document.getElementById('custom-order-modal').classList.remove('hidden');
+        }
+        function closeCustomOrderModal() {
+            document.getElementById('custom-order-modal').classList.add('hidden');
+        }
+
+        function openCheckoutModal() {
+            toggleCartModal();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            switchPaymentDetails('bkash');
+        }
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        // Switch Payment Display
+        function switchPaymentDetails(method) {
+            const box = document.getElementById('payment-details-box');
+            if(method === 'bkash') {
+                box.innerHTML = `<strong>bKash পেমেন্ট:</strong> অনুগ্রহ করে ক্যাশ-আউট/মেক পেমেন্ট করুন এই নম্বরে: <span class="text-pink-600 font-bold">${appConfig.bkash}</span>`;
+            } else if(method === 'nagad') {
+                box.innerHTML = `<strong>Nagad পেমেন্ট:</strong> নগদ সেন্ড মানি বা মার্চেন্ট পে নম্বর: <span class="text-orange-600 font-bold">${appConfig.nagad}</span>`;
+            } else if(method === 'bank') {
+                box.innerHTML = `<strong>Bank Transfer Details:</strong><br>${appConfig.bank}`;
+            } else if(method === 'card') {
+                box.innerHTML = `<strong>Visa/Mastercard / Remittance:</strong> আন্তর্জাতিক কার্ড বা রেমিট্যান্স ট্র্যান্সফারের বিস্তারিত আমাদের হোয়াটসঅ্যাপ নম্বরে সাবমিট করার পর পেয়ে যাবেন।`;
+            }
+        }
+
+        // Handlers
+        function handleCustomRequestSubmit(e) {
+            e.preventDefault();
+            alert("ধন্যবাদ! আপনার বিশেষ চাহিদাপত্রটি পাওয়া গেছে। খুব দ্রুত আমাদের প্রতিনিধি আপনার হোয়াটসঅ্যাপে যোগাযোগ করবেন।");
+            closeCustomOrderModal();
+        }
+
+        function handleFinalCheckout(e) {
+            e.preventDefault();
+            alert("আপনার অর্ডারটি সফলভাবে জমা নেওয়া হয়েছে! পরিবারের কাছে হস্তান্তরের জন্য আমরা দ্রুত যোগাযোগ করছি।");
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+        }
+
+        // ADMIN PANEL FUNCTIONS
+        function handleAddProduct(e) {
+            e.preventDefault();
+            const newP = {
+                id: Date.now(),
+                title: document.getElementById('p-title').value,
+                category: document.getElementById('p-category').value,
+                price: parseFloat(document.getElementById('p-price').value),
+                unit: document.getElementById('p-unit').value || 'টি',
+                image: document.getElementById('p-image').value,
+                description: document.getElementById('p-desc').value
+            };
+            products.unshift(newP);
+            renderProducts();
+            renderAdminProducts();
+            document.getElementById('add-product-form').reset();
+            alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
+        }
+
+        function deleteProduct(id) {
+            if(confirm("আপনি কি নিশ্চিত এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+                renderAdminProducts();
+            }
+        }
+
+        function renderAdminProducts() {
+            const tbody = document.getElementById('admin-product-table');
+            tbody.innerHTML = '';
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-gray-50";
+                tr.innerHTML = `
+                    <td class="p-2"><img src="${p.image}" class="w-10 h-10 object-cover rounded"></td>
+                    <td class="p-2 font-bold">${p.title}</td>
+                    <td class="p-2">${getCategoryName(p.category)}</td>
+                    <td class="p-2 text-emerald-600 font-bold">৳ ${p.price}</td>
+                    <td class="p-2 text-right">
+                        <button onclick="deleteProduct(${p.id})" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleSaveConfig(e) {
+            e.preventDefault();
+            appConfig.phone = document.getElementById('cfg-phone').value;
+            appConfig.email = document.getElementById('cfg-email').value;
+            appConfig.bkash = document.getElementById('cfg-bkash').value;
+            appConfig.nagad = document.getElementById('cfg-nagad').value;
+            appConfig.bank = document.getElementById('cfg-bank').value;
+
+            updateConfigDisplays();
+            alert("কনফিগারেশন ও পেমেন্ট ইনফো সফলভাবে সেভ করা হয়েছে!");
+        }
+
+        function updateConfigDisplays() {
+            document.getElementById('header-phone-display').innerHTML = `<i class="fa-solid fa-phone text-emerald-400 mr-1"></i> ${appConfig.phone}`;
+            document.getElementById('header-email-display').innerHTML = `<i class="fa-solid fa-envelope text-emerald-400 mr-1"></i> ${appConfig.email}`;
+            document.getElementById('footer-phone').innerText = appConfig.phone;
+            document.getElementById('footer-email').innerText = appConfig.email;
+            document.getElementById('footer-webaddress').innerText = appConfig.webAddress;
+        }
+    </script>
+</body>
+</html>
